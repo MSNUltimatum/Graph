@@ -1,3 +1,4 @@
+import graphClasses.NotOrientedGraph;
 import graphClasses.OrientedGraph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,12 +44,6 @@ public class TaskTests {
         Assertions.assertThrows(RuntimeException.class, () -> {
             orientedGraph.findAllIncomingAndOutgoingVertex(3);
         });
-    }
-
-    @Test
-    public void testGraphFactory(){
-        GraphFactory<Integer> gf = new GraphFactory<>();
-        gf.makeGraphWithoutEdgesBetweenSamePowerVertexes(orientedGraph);
     }
 
     private void setData() {
