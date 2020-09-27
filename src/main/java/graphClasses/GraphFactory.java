@@ -1,9 +1,9 @@
-import abstractClasses.Graph;
-import graphClasses.NoOrientedWeightedGraph;
-import graphClasses.NotOrientedGraph;
-import graphClasses.OrientedGraph;
-import graphClasses.OrientedWeightedGraph;
+package graphClasses;
 
+import abstractClasses.Graph;
+import graphClasses.*;
+
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -24,6 +24,15 @@ public class GraphFactory<T> {
             case NOTORIENTEDWEIGHTED -> new NoOrientedWeightedGraph<T>((NoOrientedWeightedGraph<T>) sourceGraph);
             case ORIENTED -> new OrientedGraph<T>((OrientedGraph<T>) sourceGraph);
             case ORIENTEDWEIGHTED -> new OrientedWeightedGraph<T>((OrientedWeightedGraph<T>) sourceGraph);
+        };
+    }
+
+    public Graph<T> makeGraph(GraphType graphType, String fileName, Class<T> tClass) throws FileNotFoundException {
+        return switch (graphType) {
+            case NOTORIENTED -> new NotOrientedGraph<T>(fileName, tClass);
+            case NOTORIENTEDWEIGHTED -> new NoOrientedWeightedGraph<T>(fileName, tClass);
+            case ORIENTED -> new OrientedGraph<T>(fileName, tClass);
+            case ORIENTEDWEIGHTED -> new OrientedWeightedGraph<T>(fileName, tClass);
         };
     }
 

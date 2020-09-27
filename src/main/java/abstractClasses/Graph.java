@@ -20,12 +20,12 @@ public abstract class Graph<T> implements IGraph<T> {
     Graph(Graph<T> g){
         for (T node: g.graph.keySet()
              ) {
-            graph.put(node, new HashMap<T, Integer>(g.graph.get(node)));
+            graph.put(node, new HashMap<>(g.graph.get(node)));
         }
     }
 
     Graph(String fileName, Class<T> tClass) throws FileNotFoundException {
-        try(FileReader reader = new FileReader(fileName);) {
+        try(FileReader reader = new FileReader(fileName)) {
             fillGraphFromFile(reader, tClass);
         } catch (IOException e) {
             throw new FileNotFoundException("No such file");

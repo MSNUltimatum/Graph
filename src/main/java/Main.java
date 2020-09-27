@@ -1,18 +1,18 @@
 import abstractClasses.Graph;
 import abstractClasses.OrientedAbstractClass;
-import graphClasses.NotOrientedGraph;
-import graphClasses.OrientedGraph;
-import graphClasses.OrientedWeightedGraph;
+import graphClasses.GraphFactory;
+import graphClasses.GraphType;
 
 import java.util.Scanner;
 
 public class Main {
-    private static Graph graph;
+    private static Graph<Integer> graph;
     private static final Scanner sc = new Scanner(System.in);
     private static final GraphFactory<Integer> graphFactory = new GraphFactory<>();
+    private static GraphType graphChoise;
     
     public static void main(String[] args) {
-        GraphType graphChoise = getGraphChoise();;
+        graphChoise = getGraphChoise();
         graph = graphFactory.makeGraph(graphChoise);
         actionCycle();
     }
@@ -77,19 +77,19 @@ public class Main {
     }
 
     private static void printGraphWithoutEdgesBetweenSamePowerVertexes() {
-        Graph graphWithoutEdges = graphFactory.makeGraphWithoutEdgesBetweenSamePowerVertexes(Main.graph);
+        Graph<Integer> graphWithoutEdges = graphFactory.makeGraphWithoutEdgesBetweenSamePowerVertexes(Main.graph);
         graphWithoutEdges.printGraphToConsole();
     }
 
     private static void printAllIncomingAndOutgoingVetexes() {
-        if(graph instanceof OrientedGraph || graph instanceof OrientedWeightedGraph){
+        if(graphChoise == GraphType.ORIENTED || graphChoise == GraphType.ORIENTEDWEIGHTED){
             int v1F = sc.nextInt();
             ((OrientedAbstractClass<Integer>) graph).findAllIncomingAndOutgoingVertex(v1F);
         }
     }
 
     private static void printAllComonIncomingVertexes() {
-        if (graph instanceof OrientedGraph || graph instanceof OrientedWeightedGraph) {
+        if (graphChoise == GraphType.ORIENTED || graphChoise == GraphType.ORIENTEDWEIGHTED) {
             int v1F = sc.nextInt();
             int v2F = sc.nextInt();
             ((OrientedAbstractClass<Integer>) graph).findCommonIncomingVertex(v1F, v2F);
@@ -114,7 +114,7 @@ public class Main {
 
     private static void inserEdge() {
         int v1 = sc.nextInt(), v2 = sc.nextInt();
-        if (graph instanceof OrientedGraph || graph instanceof NotOrientedGraph) {
+        if (graphChoise == GraphType.ORIENTED || graphChoise == GraphType.NOTORIENTED) {
             graph.addEdge(v1, v2);
         } else {
             int weight = sc.nextInt();

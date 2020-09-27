@@ -6,7 +6,7 @@ import abstractClasses.OrientedAbstractClass;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class OrientedWeightedGraph<T> extends OrientedAbstractClass<T> {
+class OrientedWeightedGraph<T> extends OrientedAbstractClass<T> {
     public OrientedWeightedGraph() {
         super();
     }

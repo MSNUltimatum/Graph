@@ -1,7 +1,6 @@
+package graphClasses;
+
 import abstractClasses.Graph;
-import graphClasses.NoOrientedWeightedGraph;
-import graphClasses.NotOrientedGraph;
-import graphClasses.OrientedGraph;
 
 public enum GraphType {
     NOTORIENTED,

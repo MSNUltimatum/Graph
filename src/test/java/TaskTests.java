@@ -1,18 +1,22 @@
-import graphClasses.NotOrientedGraph;
-import graphClasses.OrientedGraph;
+import abstractClasses.Graph;
+import abstractClasses.OrientedAbstractClass;
+import graphClasses.GraphFactory;
+import graphClasses.GraphType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 public class TaskTests {
-    OrientedGraph<Integer> orientedGraph;
+    GraphFactory<Integer> gf;
+    Graph<Integer> orientedGraph;
 
     @BeforeEach
     public void init(){
-        orientedGraph = new OrientedGraph<>();
+        gf = new GraphFactory<>();
+        orientedGraph = gf.makeGraph(GraphType.ORIENTED);
         setData();
     }
 
@@ -21,13 +25,13 @@ public class TaskTests {
         HashSet<Integer> target = new HashSet<>();
         target.add(1);
         target.add(4);
-        assertEquals(orientedGraph.findCommonIncomingVertex(2, 3), target);
+        assertEquals(((OrientedAbstractClass)orientedGraph).findCommonIncomingVertex(2, 3), target);
     }
 
     @Test
     public void testBadFindCommonIncomingVertexes(){
         Assertions.assertThrows(RuntimeException.class, () -> {
-            orientedGraph.findCommonIncomingVertex(4, 5);
+            ((OrientedAbstractClass)orientedGraph).findCommonIncomingVertex(4, 5);
         });
     }
 
@@ -36,13 +40,13 @@ public class TaskTests {
         HashSet<Integer> target = new HashSet<>();
         target.add(1);
         target.add(4);
-        assertEquals(orientedGraph.findAllIncomingAndOutgoingVertex(2), target);
+        assertEquals(((OrientedAbstractClass)orientedGraph).findAllIncomingAndOutgoingVertex(2), target);
     }
 
     @Test
     public void testBadFindAllIncomingAndOutgoingVertex(){
         Assertions.assertThrows(RuntimeException.class, () -> {
-            orientedGraph.findAllIncomingAndOutgoingVertex(3);
+            ((OrientedAbstractClass)orientedGraph).findAllIncomingAndOutgoingVertex(3);
         });
     }
 

@@ -1,6 +1,7 @@
-import graphClasses.NotOrientedGraph;
-import graphClasses.OrientedGraph;
-import org.junit.Before;
+import abstractClasses.Graph;
+import graphClasses.GraphFactory;
+import graphClasses.GraphType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +10,13 @@ import java.io.FileNotFoundException;
 import static org.junit.Assert.*;
 
 public class OrientedGraphTests {
-    OrientedGraph<Integer> orientedGraph;
-    NotOrientedGraph<Integer> notOrientedGraph;
+    GraphFactory<Integer> gf = new GraphFactory<>();
+    Graph<Integer> orientedGraph;
+    Graph<Integer> notOrientedGraph;
     @BeforeEach
     public void initGraphs(){
-        orientedGraph = new OrientedGraph<>();
-        notOrientedGraph = new NotOrientedGraph<>();
+        orientedGraph = gf.makeGraph(GraphType.ORIENTED);
+        notOrientedGraph = gf.makeGraph(GraphType.NOTORIENTED);
         setVertexesAndEdgesOriented();
         setVertexesAndEdgesNonOriented();
     }
@@ -46,40 +48,32 @@ public class OrientedGraphTests {
     public void testOrientedGraphAddEdges(){
         assertTrue(orientedGraph.hasEdge(1, 1));
         assertTrue(orientedGraph.hasEdge(1, -1));
-        try {
-            orientedGraph.addEdge(1, 2);
-        } catch (RuntimeException e) {
-            assertEquals(e.getMessage(), "Existed edge (1, 2)");
-        }
 
-        try {
-            orientedGraph.addEdge(1, 23);
-        } catch (RuntimeException e) {
-            assertEquals(e.getMessage(), "Bad vertexes");
-        }
+        Assertions.assertThrows(RuntimeException.class, ()->{
+            orientedGraph.addEdge(1, 2);
+        });
+
+        Assertions.assertThrows(RuntimeException.class, ()->{
+            orientedGraph.addEdge(1, 2);
+        });
     }
 
     @Test
     public void testFillGraphFromFile(){
-        try {
-            OrientedGraph<Integer> graph = new OrientedGraph<Integer>("NoSuchDirectory", Integer.class);
-        } catch (FileNotFoundException e) {
-            assertEquals(e.getMessage(), "No such file");
-        }
+        Assertions.assertThrows(FileNotFoundException.class, () -> {
+            Graph<Integer> graph = gf.makeGraph(GraphType.ORIENTED,"NoSuchDirectory", Integer.class);
+        });
     }
 
     @Test
-    public void testFillGraphFromWrongFile(){
-        try {
-            OrientedGraph<Integer> graph = new OrientedGraph<Integer>("inputgraph.txt", Integer.class);
-            assertTrue(graph.hasEdge(1, 2));
-        } catch (FileNotFoundException ignored) {
-        }
+    public void testFillGraphFromWrongFile() throws FileNotFoundException {
+        Graph<Integer> graph = gf.makeGraph(GraphType.ORIENTED,"inputgraph.txt", Integer.class);
+        assertTrue(graph.hasEdge(1, 2));
     }
 
     @Test
     public void testCopyConstructor(){
-        OrientedGraph<Integer> copyGraph = new OrientedGraph<>(orientedGraph);
+        Graph<Integer> copyGraph = gf.makeGraph(GraphType.ORIENTED, orientedGraph);
         assertNotSame(copyGraph.getGraph(), orientedGraph.getGraph());
         assertEquals(copyGraph.getGraph(), orientedGraph.getGraph());
     }
@@ -106,7 +100,7 @@ public class OrientedGraphTests {
 
     @Test
     public void copyConstructorNonOriented(){
-        NotOrientedGraph<Integer> copyGraph = new NotOrientedGraph<>(notOrientedGraph);
+        Graph<Integer> copyGraph = gf.makeGraph(GraphType.NOTORIENTED, notOrientedGraph);
         assertNotSame(copyGraph.getGraph(), notOrientedGraph.getGraph());
         assertEquals(copyGraph.getGraph(), notOrientedGraph.getGraph());
     }

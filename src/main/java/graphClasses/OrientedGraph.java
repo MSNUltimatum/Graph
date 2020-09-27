@@ -5,7 +5,7 @@ import abstractClasses.OrientedAbstractClass;
 
 import java.io.FileNotFoundException;
 
-public class OrientedGraph<T> extends OrientedAbstractClass<T> {
+class OrientedGraph<T> extends OrientedAbstractClass<T> {
     public OrientedGraph() {
         super();
     }
