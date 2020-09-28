@@ -1,10 +1,11 @@
 package abstractClasses;
 
-import java.io.FileNotFoundException;
-import java.util.HashSet;
-import java.util.Set;
+import interfaces.NonOrientedGraphBehavior;
 
-public abstract class NonOrientedAbstractGraph<T> extends Graph<T>{
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public abstract class NonOrientedAbstractGraph<T> extends Graph<T> implements NonOrientedGraphBehavior<T> {
     public NonOrientedAbstractGraph(){
         super();
     }
@@ -31,5 +32,52 @@ public abstract class NonOrientedAbstractGraph<T> extends Graph<T>{
             copySet.forEach(e -> deleteEdge(v, e));
             graph.remove(v);
         }
+    }
+
+    @Override
+    public void findDistances(T u) {
+        Set<T> used = new HashSet<>();
+        Map<T, Double> distance = new HashMap<>();
+        Map<T, T> prev = new HashMap<>();
+        graph.keySet().forEach(e -> distance.put(e, Double.MAX_VALUE));
+        distance.put(u, 0.0);
+        prev.put(u, null);
+
+        for(;;){
+            T v = null;
+            for (T e: graph.keySet()) {
+                if(!used.contains(e) && distance.get(e) < Double.MAX_VALUE && (v == null || distance.get(v) > distance.get(e))){
+                    v = e;
+                }
+            }
+            if(v == null)
+                break;
+            used.add(v);
+            for (T e: graph.keySet()) {
+                if (!used.contains(e) && graph.get(v).containsKey(e)) {
+                    double min = Math.min(distance.get(e), distance.get(v) + graph.get(v).get(e));
+                    if(min != distance.get(e))
+                        prev.put(e, v);
+                    distance.put(e, min);
+                }
+            }
+        }
+
+        findAndPrintPath(prev);
+        distance.entrySet().forEach(System.out::println);
+    }
+
+    private void findAndPrintPath(Map<T, T> prev) {
+        graph.keySet().forEach(e -> {
+            List<T> path = new ArrayList<>();
+            T a = e;
+            while (a != null){
+                path.add(a);
+                a = prev.get(a);
+            }
+            Collections.reverse(path);
+            path.forEach(l -> System.out.printf("%s ",l));
+            System.out.println();
+        });
     }
 }

@@ -20,7 +20,7 @@ class NoOrientedWeightedGraph<T> extends NonOrientedAbstractGraph<T> {
     }
 
     @Override
-    public void addEdge(T fromV, T toV, int weight) {
+    public void addEdge(T fromV, T toV, double weight) {
         if(hasVertex(fromV) && hasVertex(toV) && !hasEdge(fromV, toV)){
             graph.get(fromV).put(toV, weight);
             graph.get(toV).put(fromV, weight);

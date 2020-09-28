@@ -20,7 +20,7 @@ class OrientedWeightedGraph<T> extends OrientedAbstractClass<T> {
     }
 
     @Override
-    public void addEdge(T fromV, T toV, int weight) {
+    public void addEdge(T fromV, T toV, double weight) {
         if(hasVertex(fromV) && hasVertex(toV) && !hasEdge(fromV, toV)){
             graph.get(fromV).put(toV, weight);
         } else if(hasEdge(fromV, toV) && getWeightFromEdge(fromV, toV) != weight){

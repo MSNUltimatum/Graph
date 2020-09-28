@@ -7,7 +7,7 @@ public interface IGraph<T> {
 
     void addEdge(T fromV, T toV);
 
-    void addEdge(T fromV, T toV, int weight);
+    void addEdge(T fromV, T toV, double weight);
 
     boolean hasEdge(T from, T to);
 
@@ -17,9 +17,9 @@ public interface IGraph<T> {
 
     void printGraphToFile(String fileName);
 
-    int getWeightFromEdge(T fromV, T toV);
+    double getWeightFromEdge(T fromV, T toV);
 
-    void setWeightToEdge(T fromV, T toV, int weight);
+    void setWeightToEdge(T fromV, T toV, double weight);
 
     int getVertexesCount();
 

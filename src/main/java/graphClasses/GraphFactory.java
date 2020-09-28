@@ -39,7 +39,7 @@ public class GraphFactory<T> {
     public Graph<T> makeGraphWithoutEdgesBetweenSamePowerVertexes(Graph<T> sourceGraph){
         GraphType graphType = GraphType.getGraphType(sourceGraph);
         Graph<T> graph = makeGraph(graphType, sourceGraph);
-        HashMap<T, HashMap<T, Integer>> map = graph.getGraph();
+        HashMap<T, HashMap<T, Double>> map = graph.getGraph();
         Map<T, Boolean> map1 = new HashMap<>();
 
         map.keySet().forEach(e -> map1.put(e, false));

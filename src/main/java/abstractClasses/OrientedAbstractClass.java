@@ -78,7 +78,7 @@ public abstract class OrientedAbstractClass<T> extends Graph<T> implements Orien
     }
 
     private boolean checkCurrentDeleteVertex(T val) {
-        HashMap<T, HashMap<T, Integer>> graph1 = new GraphFactory<T>()
+        HashMap<T, HashMap<T, Double>> graph1 = new GraphFactory<T>()
                 .makeGraph(GraphType.getGraphType(this), this)
                 .getGraph();
         deleteVertexWithEdges(val);

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 public abstract class Graph<T> implements IGraph<T> {
-    protected HashMap<T, HashMap<T, Integer>> graph = new HashMap<>();
+    protected HashMap<T, HashMap<T, Double>> graph = new HashMap<>();
 
     Graph(){
     }
@@ -96,7 +96,7 @@ public abstract class Graph<T> implements IGraph<T> {
     }
 
     @Override
-    public void addEdge(T fromV, T toV, int weight) {
+    public void addEdge(T fromV, T toV, double weight) {
     }
 
     @Override
@@ -139,7 +139,7 @@ public abstract class Graph<T> implements IGraph<T> {
         writer.write("Смежные вершины:\n");
         for (T adjNode: graph.get(node).keySet()
              ) {
-            Integer nodeWeight = graph.get(node).get(adjNode);
+            Double nodeWeight = graph.get(node).get(adjNode);
             writer.write(String.format("    Вершина %s с весом %s\n", adjNode, nodeWeight == null ? "INF" : nodeWeight));
         }
     }
@@ -167,22 +167,22 @@ public abstract class Graph<T> implements IGraph<T> {
         System.out.println("Смежные вершины:\n");
         for (T adjNode: graph.get(node).keySet()
         ) {
-            Integer nodeWeight = graph.get(node).get(adjNode);
+            Double nodeWeight = graph.get(node).get(adjNode);
             System.out.printf("    Вершина %s с весом %s\n%n", adjNode, nodeWeight == null ? "INF" : nodeWeight);
         }
     }
 
-    public HashMap<T, HashMap<T, Integer>> getGraph() {
+    public HashMap<T, HashMap<T, Double>> getGraph() {
         return graph;
     }
 
     @Override
-    public int getWeightFromEdge(T fromV, T toV) {
+    public double getWeightFromEdge(T fromV, T toV) {
         return graph.get(fromV).get(toV);
     }
 
     @Override
-    public void setWeightToEdge(T fromV, T toV, int weight) {
+    public void setWeightToEdge(T fromV, T toV, double weight) {
         graph.get(fromV).put(toV, weight);
     }
 
