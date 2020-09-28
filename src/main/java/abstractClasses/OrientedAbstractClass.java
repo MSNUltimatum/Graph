@@ -1,8 +1,13 @@
 package abstractClasses;
 
+import graphClasses.GraphFactory;
+import graphClasses.GraphType;
 import interfaces.OrientedGraphBehavior;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,5 +67,78 @@ public abstract class OrientedAbstractClass<T> extends Graph<T> implements Orien
         }
     }
 
+    @Override
+    public boolean CheckTree() {
+        Set<T> vertexesForDelete = findVertexes();
+        for (T val: vertexesForDelete) {
+            if (checkCurrentDeleteVertex(val))
+                return true;
+        }
+        return false;
+    }
 
+    private boolean checkCurrentDeleteVertex(T val) {
+        HashMap<T, HashMap<T, Integer>> graph1 = new GraphFactory<T>()
+                .makeGraph(GraphType.getGraphType(this), this)
+                .getGraph();
+        deleteVertexWithEdges(val);
+        if (checkGraphWithotVertex())
+            return true;
+        this.graph = graph1;
+        return false;
+    }
+
+    private boolean checkGraphWithotVertex() {
+        Set<T> valsDFS = new HashSet<>();
+        T s = graph.keySet().stream().findFirst().get();
+        DFSForTreeChecker(s, valsDFS);
+        if(valsDFS.equals(graph.keySet())){
+            return checkTreePow();
+        }
+        return false;
+    }
+
+    private Set<T> findVertexes() {
+        int vertexCount = getVertexesCount();
+        int edgesCount = getEdgesCountInOrientedGraph();
+        return graph.keySet().stream()
+                .filter(i -> vertexCount - 1 == edgesCount - getPow(i) + 1).collect(Collectors.toSet());
+    }
+
+    private void DFSForTreeChecker(T v, Set<T> used){
+        used.add(v);
+        graph.keySet().forEach(e -> {
+            if(!used.contains(e) && graph.get(v).containsKey(e)){
+                DFSForTreeChecker(e, used);
+            }
+        });
+    }
+
+    private boolean checkTreePow(){
+        List<T> tList = graph.keySet().stream()
+                .flatMap(i -> graph.get(i).keySet().stream())
+                .collect(Collectors.toList());
+        Set<T> allItems = new HashSet<>();
+        return tList.stream().allMatch(allItems::add);
+    }
+
+    @Override
+    public int getEdgesCountInOrientedGraph(){
+        return graph.keySet().stream().mapToInt(e -> graph.get(e).size()).sum();
+    }
+
+    @Override
+    public void deleteVertexWithEdges(T v) {
+        if(hasVertex(v)){
+            Set<T> fromThisVertex = graph.keySet().stream().filter(i -> graph.get(i).containsKey(v)).collect(Collectors.toSet());
+            Set<T> toThisVertex = new HashSet<>(graph.get(v).keySet());
+            fromThisVertex.forEach(e -> deleteEdge(e, v));
+            toThisVertex.forEach(e -> deleteEdge(v, e));
+            graph.remove(v);
+        }
+    }
+
+    private int getPow(T e){
+        return (int) (graph.keySet().stream().filter(i -> graph.get(i).containsKey(e)).count() + graph.get(e).size());
+    }
 }

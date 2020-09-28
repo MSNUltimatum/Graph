@@ -6,10 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public abstract class Graph<T> implements IGraph<T> {
     protected HashMap<T, HashMap<T, Integer>> graph = new HashMap<>();
@@ -187,5 +184,10 @@ public abstract class Graph<T> implements IGraph<T> {
     @Override
     public void setWeightToEdge(T fromV, T toV, int weight) {
         graph.get(fromV).put(toV, weight);
+    }
+
+    @Override
+    public int getVertexesCount() {
+        return graph.size();
     }
 }

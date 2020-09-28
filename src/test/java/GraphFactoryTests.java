@@ -9,12 +9,13 @@ public class GraphFactoryTests {
     @Test
     public void testGraphFactory(){
         GraphFactory<Integer> gf = new GraphFactory<>();
-        Graph<Integer> graph;
-        Graph<Integer> graph1 = gf.makeGraph(GraphType.NOTORIENTED);
-        setData(graph1);
-
+        Graph<Integer> graph = gf.makeGraph(GraphType.NOTORIENTED);
+        setData(graph);
+        Graph<Integer> graph1 = gf.makeGraph(GraphType.NOTORIENTED, graph);
+        Graph<Integer> graph2 = gf.makeGraph(GraphType.NOTORIENTED, graph);
         graph = gf.makeGraphWithoutEdgesBetweenSamePowerVertexes(graph1);
 
+        assertEquals(graph1.getGraph(), graph2.getGraph());
         graph1.deleteEdge(1, 2);
         graph1.deleteEdge(3, 4);
 

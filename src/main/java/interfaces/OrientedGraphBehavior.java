@@ -6,4 +6,8 @@ public interface OrientedGraphBehavior<T> extends IGraph<T> {
     Set<T> findCommonIncomingVertex(T v, T u);
 
     Set<T> findAllIncomingAndOutgoingVertex(T u);
+
+    boolean CheckTree();
+
+    int getEdgesCountInOrientedGraph();
 }

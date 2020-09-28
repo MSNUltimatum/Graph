@@ -21,4 +21,7 @@ public interface IGraph<T> {
 
     void setWeightToEdge(T fromV, T toV, int weight);
 
+    int getVertexesCount();
+
+    void deleteVertexWithEdges(T v);
 }

@@ -1,4 +1,5 @@
 import abstractClasses.Graph;
+import abstractClasses.OrientedAbstractClass;
 import graphClasses.GraphFactory;
 import graphClasses.GraphType;
 import org.junit.jupiter.api.Assertions;
@@ -104,4 +105,5 @@ public class OrientedGraphTests {
         assertNotSame(copyGraph.getGraph(), notOrientedGraph.getGraph());
         assertEquals(copyGraph.getGraph(), notOrientedGraph.getGraph());
     }
+
 }
