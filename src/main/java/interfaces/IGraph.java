@@ -24,4 +24,8 @@ public interface IGraph<T> {
     int getVertexesCount();
 
     void deleteVertexWithEdges(T v);
+
+    boolean isConnected();
+
+    public int countReachableNodes(T u);
 }

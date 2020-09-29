@@ -101,7 +101,9 @@ public abstract class Graph<T> implements IGraph<T> {
 
     @Override
     public boolean hasEdge(T from, T to) {
-        return graph.get(from).containsKey(to);
+        if(hasVertex(from) && hasVertex(to))
+            return graph.get(from).containsKey(to);
+        return false;
     }
 
     @Override
@@ -189,5 +191,39 @@ public abstract class Graph<T> implements IGraph<T> {
     @Override
     public int getVertexesCount() {
         return graph.size();
+    }
+
+    @Override
+    public boolean isConnected() {
+        Set<T> valsDFS = new HashSet<>();
+        Optional<T> s = graph.keySet().stream().findFirst();
+        if(s.isPresent()) {
+            DFS(s.get(), valsDFS);
+            return valsDFS.equals(graph.keySet());
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int countReachableNodes(T u){
+        Set<T> valsDFS = new HashSet<>();
+        DFS(u, valsDFS);
+        return valsDFS.size();
+    }
+
+    public boolean reachable(T s, T d){
+        Set<T> valsDFS = new HashSet<>();
+        DFS(s, valsDFS);
+        return valsDFS.contains(d);
+    }
+
+    private void DFS(T v, Set<T> used){
+        used.add(v);
+        graph.keySet().forEach(e -> {
+            if(!used.contains(e) && graph.get(v).containsKey(e)){
+                DFS(e, used);
+            }
+        });
     }
 }

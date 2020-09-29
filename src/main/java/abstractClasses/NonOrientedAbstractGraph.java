@@ -35,7 +35,7 @@ public abstract class NonOrientedAbstractGraph<T> extends Graph<T> implements No
     }
 
     @Override
-    public void findDistances(T u) {
+    public Map<T, Double> findDistances(T u) {
         Set<T> used = new HashSet<>();
         Map<T, Double> distance = new HashMap<>();
         Map<T, T> prev = new HashMap<>();
@@ -65,6 +65,7 @@ public abstract class NonOrientedAbstractGraph<T> extends Graph<T> implements No
 
         findAndPrintPath(prev);
         distance.entrySet().forEach(System.out::println);
+        return distance;
     }
 
     private void findAndPrintPath(Map<T, T> prev) {

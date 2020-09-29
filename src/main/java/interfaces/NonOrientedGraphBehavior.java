@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.util.Map;
+
 public interface NonOrientedGraphBehavior <T> extends IGraph<T> {
-    void findDistances(T u);
+    Map<T, Double> findDistances(T u);
 }
