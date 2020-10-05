@@ -180,7 +180,10 @@ public abstract class Graph<T> implements IGraph<T> {
 
     @Override
     public double getWeightFromEdge(T fromV, T toV) {
-        return graph.get(fromV).get(toV);
+        if(hasVertex(fromV) && hasVertex(toV))
+            return graph.get(fromV).get(toV);
+        else
+            return 0;
     }
 
     @Override
