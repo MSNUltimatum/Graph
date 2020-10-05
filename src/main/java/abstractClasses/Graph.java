@@ -196,24 +196,6 @@ public abstract class Graph<T> implements IGraph<T> {
         return graph.size();
     }
 
-    @Override
-    public boolean isConnected() {
-        Set<T> valsDFS = new HashSet<>();
-        Optional<T> s = graph.keySet().stream().findFirst();
-        if(s.isPresent()) {
-            DFS(s.get(), valsDFS);
-            return valsDFS.equals(graph.keySet());
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public int countReachableNodes(T u){
-        Set<T> valsDFS = new HashSet<>();
-        DFS(u, valsDFS);
-        return valsDFS.size();
-    }
 
     public boolean reachable(T s, T d){
         Set<T> valsDFS = new HashSet<>();
