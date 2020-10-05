@@ -2,12 +2,10 @@ package graphClasses;
 
 import abstractClasses.Graph;
 import graphClasses.*;
+import helpClasses.Pair;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class GraphFactory<T> {
     public Graph<T> makeGraph(GraphType graphType){
@@ -63,4 +61,33 @@ public class GraphFactory<T> {
         return graph;
     }
 
+    public List<Pair> getEdgesListFromIntGraph(Graph<Integer> graph){
+        List<Pair> edges = new ArrayList<>();
+        graph.getGraph().forEach((key, val) -> {
+            val.forEach((key1, val1) -> {
+                Pair edge = new Pair();
+                if(graph instanceof NoOrientedWeightedGraph || graph instanceof NotOrientedGraph) {
+                    makePair(key, key1, edge);
+                } else {
+                    edge.setFirstValue(key);
+                    edge.setSecondValue(key1);
+                }
+                edge.setWeight(val1);
+                if(!edges.contains(edge)){
+                    edges.add(edge);
+                }
+            });
+        });
+        return edges;
+    }
+
+    private void makePair(Integer key, Integer key1, Pair edge) {
+        if(key >= key1){
+            edge.setFirstValue(key1);
+            edge.setSecondValue(key);
+        } else {
+            edge.setFirstValue(key);
+            edge.setSecondValue(key1);
+        }
+    }
 }
