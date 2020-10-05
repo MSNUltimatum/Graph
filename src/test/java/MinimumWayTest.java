@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
-public class NoOrientedTasksTest {
+public class MinimumWayTest {
     GraphFactory<Integer> gf = new GraphFactory<>();
     @Test
     public void minWay(){

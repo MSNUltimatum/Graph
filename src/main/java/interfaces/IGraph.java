@@ -27,5 +27,5 @@ public interface IGraph<T> {
 
     boolean isConnected();
 
-    public int countReachableNodes(T u);
+    int countReachableNodes(T u);
 }

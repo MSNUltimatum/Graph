@@ -91,7 +91,7 @@ public abstract class OrientedAbstractClass<T> extends Graph<T> implements Orien
     private boolean checkGraphWithotVertex() {
         Set<T> valsDFS = new HashSet<>();
         T s = graph.keySet().stream().findFirst().get();
-        DFSForTreeChecker(s, valsDFS);
+        DFS(s, valsDFS);
         if(valsDFS.equals(graph.keySet())){
             return checkTreePow();
         }
@@ -103,15 +103,6 @@ public abstract class OrientedAbstractClass<T> extends Graph<T> implements Orien
         int edgesCount = getEdgesCountInOrientedGraph();
         return graph.keySet().stream()
                 .filter(i -> vertexCount - 1 == edgesCount - getPow(i) + 1).collect(Collectors.toSet());
-    }
-
-    private void DFSForTreeChecker(T v, Set<T> used){
-        used.add(v);
-        graph.keySet().forEach(e -> {
-            if(!used.contains(e) && graph.get(v).containsKey(e)){
-                DFSForTreeChecker(e, used);
-            }
-        });
     }
 
     private boolean checkTreePow(){

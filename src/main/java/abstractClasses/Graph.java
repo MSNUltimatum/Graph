@@ -218,7 +218,7 @@ public abstract class Graph<T> implements IGraph<T> {
         return valsDFS.contains(d);
     }
 
-    private void DFS(T v, Set<T> used){
+    protected void DFS(T v, Set<T> used){
         used.add(v);
         graph.keySet().forEach(e -> {
             if(!used.contains(e) && graph.get(v).containsKey(e)){
