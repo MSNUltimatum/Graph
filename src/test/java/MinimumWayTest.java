@@ -22,7 +22,6 @@ public class MinimumWayTest {
         graph.addEdge(2, 3, 0.5);
         graph.addEdge(3, 4, 0.5);
         graph.addEdge(4, 5, 0.5);
-        graph.addEdge(1, 3, 2);
         graph.addEdge(1, 5, 0.5);
         graph.addEdge(1, 4, 1);
         Map<Integer, Double> result = new HashMap<>();
@@ -31,7 +30,10 @@ public class MinimumWayTest {
         result.put(3, 1d);
         result.put(4, 1d);
         result.put(5, 0.5d);
-        Map<? extends Object, ? extends Double> distances = ((NonOrientedAbstractGraph) graph).findDistances(1);
+        Map<Integer, Double> distances = ((NonOrientedAbstractGraph<Integer>) graph).findDistances(1);
+        Map<Integer, Double> bfs = ((NonOrientedAbstractGraph<Integer>) graph).BFS(1);
+
+        assertEquals(distances, bfs);
         assertEquals(result, distances);
     }
 
@@ -63,6 +65,33 @@ public class MinimumWayTest {
         result.put(7, 2);
 
         Map<Integer, Integer> minWays = ((NonOrientedAbstractGraph) graph).countOfMinimumWays(0);
+        assertEquals(result, minWays);
+    }
+
+    @Test
+    public void countOfMinWaysTest(){
+        Graph<Integer> graph = gf.makeGraph(GraphType.NOTORIENTEDWEIGHTED);
+        for (int i = 1; i <= 5; i++) {
+            graph.addVertex(i);
+        }
+
+        graph.addEdge(1, 2, 1);
+        graph.addEdge(1, 4, 1);
+
+        graph.addEdge(2, 3, 1);
+        graph.addEdge(4, 3, 1);
+        graph.addEdge(4, 5, 1);
+        graph.addEdge(5, 3, 1);
+        graph.addEdge(2, 5, 1);
+
+        Map<Integer, Integer> result = new HashMap<>();
+        result.put(1, 1);
+        result.put(2, 1);
+        result.put(4, 1);
+        result.put(5, 2);
+        result.put(3, 2);
+
+        Map<Integer, Integer> minWays = ((NonOrientedAbstractGraph<Integer>) graph).countOfMinimumWays(1);
         assertEquals(result, minWays);
     }
 }

@@ -30,7 +30,7 @@ class OrientedWeightedGraph<T> extends OrientedAbstractClass<T> {
             if ("Y".equals(s)) {
                 setWeightToEdge(fromV, toV, weight);
             }
-        }else {
+        } else {
             throw new RuntimeException("Bad data to insert");
         }
     }

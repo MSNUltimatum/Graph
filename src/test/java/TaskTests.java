@@ -61,10 +61,9 @@ public class TaskTests {
 
     @Test
     public void checkTreeTest(){
-        setDataToOrientGraph(orientedGraph, new int[]{1, 2, 3, 4});
+        setDataToOrientGraph(orientedGraph, new int[]{1, 2, 3, 4, 5});
         orientedGraph.addEdge(1, 2);
         orientedGraph.addEdge(1, 3);
-        orientedGraph.addEdge(3, 4);
         orientedGraph.addEdge(2, 4);
         assertTrue(((OrientedAbstractClass) orientedGraph).CheckTree());
     }

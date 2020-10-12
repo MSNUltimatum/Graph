@@ -25,15 +25,16 @@ public class FordBellmanTask {
         });
 
         int x = 0;
-        for (int i=0; i < size; ++i) {
+        for (int i = 0; i < size; ++i) {
             x = -1;
-            for (Pair edge : edges)
+            for (Pair edge : edges) {
                 if (d.get(edge.getSecondValue()) > d.get(edge.getFirstValue()) + edge.getWeight()) {
                     d.put(edge.getSecondValue(),
                             Math.max(-Double.MAX_VALUE, d.get(edge.getFirstValue()) + edge.getWeight()));
                     p.put(edge.getSecondValue(), edge.getFirstValue());
                     x = edge.getSecondValue();
                 }
+            }
         }
         if (x == -1) {
             throw new RuntimeException("No negate cycles");

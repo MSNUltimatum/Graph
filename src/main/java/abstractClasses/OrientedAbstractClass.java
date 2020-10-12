@@ -71,8 +71,10 @@ public abstract class OrientedAbstractClass<T> extends Graph<T> implements Orien
     public boolean CheckTree() {
         Set<T> vertexesForDelete = findVertexes();
         for (T val: vertexesForDelete) {
-            if (checkCurrentDeleteVertex(val))
+            if (checkCurrentDeleteVertex(val)) {
+                System.out.println(val);
                 return true;
+            }
         }
         return false;
     }
@@ -106,11 +108,16 @@ public abstract class OrientedAbstractClass<T> extends Graph<T> implements Orien
     }
 
     private boolean checkTreePow(){
-        List<T> tList = graph.keySet().stream()
-                .flatMap(i -> graph.get(i).keySet().stream())
-                .collect(Collectors.toList());
-        Set<T> allItems = new HashSet<>();
-        return tList.stream().allMatch(allItems::add);
+        GraphType graphType = GraphType.getGraphType(this);
+        if(graphType == GraphType.ORIENTED || graphType == GraphType.ORIENTEDWEIGHTED) {
+            List<T> tList = graph.keySet().stream()
+                    .flatMap(i -> graph.get(i).keySet().stream())
+                    .collect(Collectors.toList());
+            Set<T> allItems = new HashSet<>();
+            return tList.stream().allMatch(allItems::add);
+        } else {
+            throw new IllegalStateException("Graph is not oriented");
+        }
     }
 
     @Override

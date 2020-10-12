@@ -6,7 +6,7 @@ import java.util.*;
 
 public class DijkstraAlgorithmTasks<T> {
     private Map<T, Integer> countOfMinimumWays;
-    private  Map<T, T> prev;
+    private Map<T, T> prev;
     private Graph<T> sourceGraph;
 
     public DijkstraAlgorithmTasks(Graph<T> sourceGraph) {
@@ -48,7 +48,8 @@ public class DijkstraAlgorithmTasks<T> {
         for(;;){
             T v = null;
             for (T e: sourceGraph.getGraph().keySet()) {
-                if(!used.contains(e) && distance.get(e) < Double.MAX_VALUE && (v == null || distance.get(v) > distance.get(e))){
+                if(!used.contains(e) && distance.get(e) < Double.MAX_VALUE
+                        && (v == null || distance.get(v) > distance.get(e))){
                     v = e;
                 }
             }

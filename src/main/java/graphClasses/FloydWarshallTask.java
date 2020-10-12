@@ -43,6 +43,7 @@ public class FloydWarshallTask {
                 }
             });
         });
+
         for (int k = 0; k < vNum; k++) {
             for (int i = 0; i < vNum; i++) {
                 for (int j = 0; j < vNum; j++) {
