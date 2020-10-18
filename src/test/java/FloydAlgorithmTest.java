@@ -1,7 +1,7 @@
-import abstractClasses.Graph;
-import graphClasses.FloydWarshallTask;
+import graphClasses.FloydWarshallAlgorithm;
 import graphClasses.GraphFactory;
 import graphClasses.GraphType;
+import graphClasses.NoOrientedWeightedGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +11,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FloydAlgorithmTest {
-    Graph<Integer> graph;
+    NoOrientedWeightedGraph<Integer> graph;
     GraphFactory<Integer> gf;
-    FloydWarshallTask fut;
+    FloydWarshallAlgorithm fut;
+
     @BeforeEach
     public void init(){
         gf = new GraphFactory<>();
-        graph = gf.makeGraph(GraphType.NOTORIENTEDWEIGHTED);
+        graph = new NoOrientedWeightedGraph<>();
     }
+
     @Test
     public void floydTest(){
         graph.addVertex(0);
@@ -39,7 +41,7 @@ public class FloydAlgorithmTest {
         graph.addEdge(5, 3, 3);
         graph.addEdge(4, 3, 3);
         graph.addEdge(4, 5, 3);
-        fut = new FloydWarshallTask(graph);
+        fut = new FloydWarshallAlgorithm(graph);
         List<Integer> centerOfGraph = fut.findCenterOfGraph();
         List<Integer> reult = new ArrayList<>();
         reult.add(0);

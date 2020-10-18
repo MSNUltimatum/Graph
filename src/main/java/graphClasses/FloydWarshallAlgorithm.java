@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FloydWarshallTask {
-    int INF = Integer.MAX_VALUE / 2; // "Бесконечность"
-    int vNum; // количество вершин
-    Graph<Integer> copyOfSourceGraph;
+public class FloydWarshallAlgorithm {
+    int vNum;
+    NoOrientedWeightedGraph<Integer> copyOfSourceGraph;
 
-    public FloydWarshallTask(Graph<Integer> graph) {
-        copyOfSourceGraph = new GraphFactory<Integer>().makeGraph(GraphType.NOTORIENTEDWEIGHTED, graph);
+    public FloydWarshallAlgorithm(Graph<Integer> graph) {
+        copyOfSourceGraph = (NoOrientedWeightedGraph<Integer>) new GraphFactory<Integer>().makeGraph(GraphType.NOTORIENTEDWEIGHTED, graph);
         vNum = graph.getVertexesCount();
     }
 
@@ -29,20 +28,16 @@ public class FloydWarshallTask {
     private Map<Integer, Double> findEccentricity(){
         floydWarshall();
         Map<Integer, Double> eccentricities = new HashMap<>();
-        copyOfSourceGraph.getGraph().forEach((k, v) -> {
-            eccentricities.put(k, Collections.max(v.values()));
-        });
+        copyOfSourceGraph.getGraph().forEach((k, v) -> eccentricities.put(k, Collections.max(v.values())));
         return eccentricities;
     }
 
     private void floydWarshall() {
-        copyOfSourceGraph.getGraph().keySet().forEach(e -> {
-            copyOfSourceGraph.getGraph().forEach((k, v) -> {
-                if(!v.containsKey(e)){
-                    v.put(e, Double.MAX_VALUE);
-                }
-            });
-        });
+        copyOfSourceGraph.getGraph().keySet().forEach(e -> copyOfSourceGraph.getGraph().forEach((k, v) -> {
+            if(!v.containsKey(e)){
+                v.put(e, Double.MAX_VALUE);
+            }
+        }));
 
         for (int k = 0; k < vNum; k++) {
             for (int i = 0; i < vNum; i++) {

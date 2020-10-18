@@ -1,7 +1,8 @@
 import abstractClasses.Graph;
-import abstractClasses.OrientedAbstractClass;
 import graphClasses.GraphFactory;
 import graphClasses.GraphType;
+import graphClasses.NotOrientedGraph;
+import graphClasses.OrientedGraph;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,12 +13,12 @@ import static org.junit.Assert.*;
 
 public class OrientedGraphTests {
     GraphFactory<Integer> gf = new GraphFactory<>();
-    Graph<Integer> orientedGraph;
-    Graph<Integer> notOrientedGraph;
+    OrientedGraph<Integer> orientedGraph;
+    NotOrientedGraph<Integer> notOrientedGraph;
     @BeforeEach
     public void initGraphs(){
-        orientedGraph = gf.makeGraph(GraphType.ORIENTED);
-        notOrientedGraph = gf.makeGraph(GraphType.NOTORIENTED);
+        orientedGraph = new OrientedGraph<>();
+        notOrientedGraph = new NotOrientedGraph<>();
         setVertexesAndEdgesOriented();
         setVertexesAndEdgesNonOriented();
     }
@@ -50,19 +51,15 @@ public class OrientedGraphTests {
         assertTrue(orientedGraph.hasEdge(1, 1));
         assertTrue(orientedGraph.hasEdge(1, -1));
 
-        Assertions.assertThrows(RuntimeException.class, ()->{
-            orientedGraph.addEdge(1, 2);
-        });
+        Assertions.assertThrows(RuntimeException.class, ()-> orientedGraph.addEdge(1, 2));
 
-        Assertions.assertThrows(RuntimeException.class, ()->{
-            orientedGraph.addEdge(1, 2);
-        });
+        Assertions.assertThrows(RuntimeException.class, ()-> orientedGraph.addEdge(1, 2));
     }
 
     @Test
     public void testFillGraphFromFile(){
         Assertions.assertThrows(FileNotFoundException.class, () -> {
-            Graph<Integer> graph = gf.makeGraph(GraphType.ORIENTED,"NoSuchDirectory", Integer.class);
+            OrientedGraph<Integer> graph = (OrientedGraph<Integer>) gf.makeGraph(GraphType.ORIENTED,"NoSuchDirectory", Integer.class);
         });
     }
 

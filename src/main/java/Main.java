@@ -114,12 +114,12 @@ public class Main {
 
     private static void inserEdge() {
         int v1 = sc.nextInt(), v2 = sc.nextInt();
-        if (graphChoise == GraphType.ORIENTED || graphChoise == GraphType.NOTORIENTED) {
-            graph.addEdge(v1, v2);
-        } else {
-            int weight = sc.nextInt();
-            graph.addEdge(v1, v2, weight);
-        }
+//        if (graphChoise == GraphType.ORIENTED || graphChoise == GraphType.NOTORIENTED) {
+//            graph.addEdge(v1, v2);
+//        } else {
+//            int weight = sc.nextInt();
+//            graph.addEdge(v1, v2, weight);
+//        }
     }
 
     private static void printMenu() {

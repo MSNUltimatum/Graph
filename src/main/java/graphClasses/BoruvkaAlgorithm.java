@@ -2,12 +2,13 @@ package graphClasses;
 
 import abstractClasses.Graph;
 import helpClasses.Pair;
+import helpClasses.UnionFind;
 
 import java.util.*;
 
-public class BoruvkaAlgorithm<T> {
-    private final Graph<Integer> noOrientedWeightedGraph;
-    private final Graph<Integer> mst;
+public class BoruvkaAlgorithm {
+    private final NoOrientedWeightedGraph<Integer> noOrientedWeightedGraph;
+    private final NoOrientedWeightedGraph<Integer> mst;
     private final UnionFind uf;
     private int totalWeight = 0;
     private final List<Pair> edges;
@@ -15,22 +16,12 @@ public class BoruvkaAlgorithm<T> {
     private Pair[] closestEdgeArray;
 
 
-    public BoruvkaAlgorithm(Graph<Integer> graph) {
+    public BoruvkaAlgorithm(NoOrientedWeightedGraph<Integer> graph) {
         this.noOrientedWeightedGraph = graph;
         uf = new UnionFind(graph.getVertexesCount());
         mst = new NoOrientedWeightedGraph<>();
         noOrientedWeightedGraph.getGraph().keySet().forEach(mst::addVertex);
         edges = new GraphFactory<>().getEdgesListFromIntGraph(graph);
-    }
-
-    private void makePair(Integer key, Integer key1, Pair edge) {
-        if(key >= key1){
-            edge.setFirstValue(key1);
-            edge.setSecondValue(key);
-        } else {
-            edge.setFirstValue(key);
-            edge.setSecondValue(key1);
-        }
     }
 
     public Graph<Integer> Boruvka_Mst() {
@@ -97,44 +88,6 @@ public class BoruvkaAlgorithm<T> {
     private double getvParentWeight(Integer firstValue, Integer secondValue) {
         return noOrientedWeightedGraph.getWeightFromEdge(firstValue,
                 secondValue);
-    }
-}
-
-class UnionFind<T> {
-    private final Map<Integer, Integer> parents;
-    private final Map<Integer, Integer> ranks;
-
-    public UnionFind(int n) {
-        parents = new HashMap<>();
-        ranks = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            parents.put(i, i);
-            ranks.put(i, 0);
-        }
-    }
-
-    public Integer find(Integer u) {
-        while (!u.equals(parents.get(u))) {
-            u = parents.get(u);
-        }
-        return u;
-    }
-
-    public void union(Integer u, Integer v) {
-        Integer uParent = find(u);
-        Integer vParent = find(v);
-        if (uParent.equals(vParent)) {
-            return;
-        }
-
-        if (ranks.get(uParent) < ranks.get(vParent)) {
-            parents.put(uParent, vParent);
-        } else if (ranks.get(uParent) > ranks.get(vParent)) {
-            parents.put(vParent, uParent);
-        } else {
-            parents.put(vParent, uParent);
-            ranks.put(uParent, ranks.get(uParent) + 1);
-        }
     }
 }
 

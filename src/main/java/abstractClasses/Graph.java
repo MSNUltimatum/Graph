@@ -41,29 +41,19 @@ public abstract class Graph<T> implements IGraph<T> {
         }
     }
 
-    private void fillNoWeightedGraph(List<String[]> lines, Class<T> tClass) {
-        lines.forEach(line ->{
-            for (int i = 1; i < line.length; i++) {
-                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i]));
-            }
-        });
+    protected void fillNoWeightedGraph(List<String[]> lines, Class<T> tClass) {
     }
 
-    private void fillWeightedGraph(List<String[]> lines, Class<T> tClass) {
-        lines.forEach(line ->{
-            for (int i = 1; i < line.length; i++) {
-                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i].split("=")[0]), Integer.parseInt(line[i].split("=")[1]));
-            }
-        });
+    protected void fillWeightedGraph(List<String[]> lines, Class<T> tClass) {
     }
 
-    private void readLines(Scanner in, List<String[]> lines) {
+    protected void readLines(Scanner in, List<String[]> lines) {
         while (in.hasNextLine()){
             lines.add(in.nextLine().split(" "));
         }
     }
 
-    private T castArg(Class<T> tClass, String line) {
+    protected T castArg(Class<T> tClass, String line) {
         if (tClass.isAssignableFrom(String.class)) {
             return (T) line;
         } else if (tClass.isAssignableFrom(Integer.class)) {
@@ -89,14 +79,6 @@ public abstract class Graph<T> implements IGraph<T> {
     @Override
     public boolean hasVertex(T name) {
         return graph.containsKey(name);
-    }
-
-    @Override
-    public void addEdge(T fromV, T toV){
-    }
-
-    @Override
-    public void addEdge(T fromV, T toV, double weight) {
     }
 
     @Override
@@ -179,28 +161,8 @@ public abstract class Graph<T> implements IGraph<T> {
     }
 
     @Override
-    public double getWeightFromEdge(T fromV, T toV) {
-        if(hasVertex(fromV) && hasVertex(toV))
-            return graph.get(fromV).get(toV);
-        else
-            return 0;
-    }
-
-    @Override
-    public void setWeightToEdge(T fromV, T toV, double weight) {
-        graph.get(fromV).put(toV, weight);
-    }
-
-    @Override
     public int getVertexesCount() {
         return graph.size();
-    }
-
-
-    public boolean reachable(T s, T d){
-        Set<T> valsDFS = new HashSet<>();
-        DFS(s, valsDFS);
-        return valsDFS.contains(d);
     }
 
     protected void DFS(T v, Set<T> used){

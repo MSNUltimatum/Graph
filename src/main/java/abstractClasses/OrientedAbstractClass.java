@@ -2,7 +2,7 @@ package abstractClasses;
 
 import graphClasses.GraphFactory;
 import graphClasses.GraphType;
-import interfaces.OrientedGraphBehavior;
+import interfaces.IOriented;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class OrientedAbstractClass<T> extends Graph<T> implements OrientedGraphBehavior<T> {
+public abstract class OrientedAbstractClass<T> extends Graph<T> implements IOriented<T> {
     public OrientedAbstractClass(){
         super();
     }
@@ -84,13 +84,13 @@ public abstract class OrientedAbstractClass<T> extends Graph<T> implements Orien
                 .makeGraph(GraphType.getGraphType(this), this)
                 .getGraph();
         deleteVertexWithEdges(val);
-        if (checkGraphWithotVertex())
+        if (checkGraphWithoutVertex())
             return true;
         this.graph = graph1;
         return false;
     }
 
-    private boolean checkGraphWithotVertex() {
+    private boolean checkGraphWithoutVertex() {
         Set<T> valsDFS = new HashSet<>();
         T s = graph.keySet().stream().findFirst().get();
         DFS(s, valsDFS);

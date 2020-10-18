@@ -1,11 +1,13 @@
 package graphClasses;
 
-import abstractClasses.Graph;
 import abstractClasses.OrientedAbstractClass;
+import interfaces.INotWeighted;
+import interfaces.IOriented;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
-class OrientedGraph<T> extends OrientedAbstractClass<T> {
+public class OrientedGraph<T> extends OrientedAbstractClass<T> implements IOriented<T>, INotWeighted<T> {
     public OrientedGraph() {
         super();
     }
@@ -27,5 +29,14 @@ class OrientedGraph<T> extends OrientedAbstractClass<T> {
         } else if(hasEdge(fromV, toV)) {
             throw new RuntimeException("Existed edge (" + fromV + ", " + toV + ")");
         }
+    }
+
+    @Override
+    protected void fillNoWeightedGraph(List<String[]> lines, Class<T> tClass) {
+        lines.forEach(line ->{
+            for (int i = 1; i < line.length; i++) {
+                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i]));
+            }
+        });
     }
 }

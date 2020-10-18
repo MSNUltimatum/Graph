@@ -1,7 +1,8 @@
 import abstractClasses.Graph;
-import abstractClasses.NonOrientedAbstractGraph;
+import abstractClasses.NoOrientedAbstractGraph;
 import graphClasses.GraphFactory;
 import graphClasses.GraphType;
+import graphClasses.NoOrientedWeightedGraph;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public class MinimumWayTest {
     GraphFactory<Integer> gf = new GraphFactory<>();
     @Test
     public void minWay(){
-        Graph<Integer> graph = gf.makeGraph(GraphType.NOTORIENTEDWEIGHTED);
+        NoOrientedWeightedGraph<Integer> graph = new NoOrientedWeightedGraph<>();
         graph.addVertex(1);
         graph.addVertex(2);
         graph.addVertex(3);
@@ -30,8 +31,8 @@ public class MinimumWayTest {
         result.put(3, 1d);
         result.put(4, 1d);
         result.put(5, 0.5d);
-        Map<Integer, Double> distances = ((NonOrientedAbstractGraph<Integer>) graph).findDistances(1);
-        Map<Integer, Double> bfs = ((NonOrientedAbstractGraph<Integer>) graph).BFS(1);
+        Map<Integer, Double> distances = graph.findDistances(1);
+        Map<Integer, Double> bfs = graph.minimumWays(1);
 
         assertEquals(distances, bfs);
         assertEquals(result, distances);
@@ -39,7 +40,7 @@ public class MinimumWayTest {
 
     @Test
     public void countOfMinWays(){
-        Graph<Integer> graph = gf.makeGraph(GraphType.NOTORIENTEDWEIGHTED);
+        NoOrientedWeightedGraph<Integer> graph = new NoOrientedWeightedGraph<>();
         for (int i = 0; i < 8; i++) {
             graph.addVertex(i);
         }
@@ -64,13 +65,13 @@ public class MinimumWayTest {
         result.put(6, 2);
         result.put(7, 2);
 
-        Map<Integer, Integer> minWays = ((NonOrientedAbstractGraph) graph).countOfMinimumWays(0);
+        Map<Integer, Integer> minWays =  graph.countOfMinimumWays(0);
         assertEquals(result, minWays);
     }
 
     @Test
     public void countOfMinWaysTest(){
-        Graph<Integer> graph = gf.makeGraph(GraphType.NOTORIENTEDWEIGHTED);
+        NoOrientedWeightedGraph<Integer> graph = new NoOrientedWeightedGraph<>();
         for (int i = 1; i <= 5; i++) {
             graph.addVertex(i);
         }
@@ -91,7 +92,7 @@ public class MinimumWayTest {
         result.put(5, 2);
         result.put(3, 2);
 
-        Map<Integer, Integer> minWays = ((NonOrientedAbstractGraph<Integer>) graph).countOfMinimumWays(1);
+        Map<Integer, Integer> minWays = graph.countOfMinimumWays(1);
         assertEquals(result, minWays);
     }
 }

@@ -1,15 +1,10 @@
-import abstractClasses.Graph;
-import abstractClasses.NonOrientedAbstractGraph;
-import graphClasses.BoruvkaAlgorithm;
-import graphClasses.GraphFactory;
-import graphClasses.GraphType;
+import graphClasses.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
 public class BoruvkaTest {
     @Test
     public void boruvkaTest(){
-        Graph<Integer> noOrientGraph = new GraphFactory<Integer>().makeGraph(GraphType.NOTORIENTEDWEIGHTED);
+        NoOrientedWeightedGraph<Integer> noOrientGraph = new NoOrientedWeightedGraph<>();
         noOrientGraph.addVertex(0);
         noOrientGraph.addVertex(1);
         noOrientGraph.addVertex(2);
@@ -23,13 +18,13 @@ public class BoruvkaTest {
         noOrientGraph.addEdge(2, 3, 15);
         noOrientGraph.addEdge(3, 4, 7);
         noOrientGraph.addEdge(2, 4, 10);
-        BoruvkaAlgorithm<Integer> boruvkaAlgorithm = new BoruvkaAlgorithm<Integer>(noOrientGraph);
+        BoruvkaAlgorithm boruvkaAlgorithm = new BoruvkaAlgorithm(noOrientGraph);
         boruvkaAlgorithm.Boruvka_Mst();
     }
 
     @Test
     public void boruvkaForestTest(){
-        Graph<Integer> noOrientGraph = new GraphFactory<Integer>().makeGraph(GraphType.NOTORIENTEDWEIGHTED);
+        NoOrientedWeightedGraph<Integer> noOrientGraph = new NoOrientedWeightedGraph<>();
         noOrientGraph.addVertex(0);
         noOrientGraph.addVertex(1);
         noOrientGraph.addVertex(2);
@@ -44,7 +39,7 @@ public class BoruvkaTest {
         noOrientGraph.addEdge(3, 4, 7);
         noOrientGraph.addEdge(3, 5, 10);
         noOrientGraph.addEdge(4, 5, 15);
-        BoruvkaAlgorithm<Integer> boruvkaAlgorithm = new BoruvkaAlgorithm<Integer>(noOrientGraph);
+        BoruvkaAlgorithm boruvkaAlgorithm = new BoruvkaAlgorithm(noOrientGraph);
         boruvkaAlgorithm.Boruvka_Mst();
     }
 }

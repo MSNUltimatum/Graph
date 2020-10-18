@@ -4,12 +4,12 @@ import abstractClasses.Graph;
 
 import java.util.*;
 
-public class DijkstraAlgorithmTasks<T> {
+public class DijkstraAlgorithm<T> {
     private Map<T, Integer> countOfMinimumWays;
     private Map<T, T> prev;
     private Graph<T> sourceGraph;
 
-    public DijkstraAlgorithmTasks(Graph<T> sourceGraph) {
+    public DijkstraAlgorithm(Graph<T> sourceGraph) {
         this.sourceGraph = sourceGraph;
     }
 

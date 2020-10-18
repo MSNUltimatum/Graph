@@ -5,12 +5,12 @@ import helpClasses.Pair;
 
 import java.util.*;
 
-public class FordBellmanTask {
+public class FordBellmanAlgorithm {
     private final int size;
     private final List<Pair> edges;
     private final Graph<Integer> graph;
 
-    public FordBellmanTask(Graph<Integer> graph) {
+    public FordBellmanAlgorithm(Graph<Integer> graph) {
         this.graph = graph;
         size = graph.getVertexesCount();
         edges = new GraphFactory<>().getEdgesListFromIntGraph(graph);
@@ -39,14 +39,13 @@ public class FordBellmanTask {
         if (x == -1) {
             throw new RuntimeException("No negate cycles");
         } else {
-            int y = x;
             for (int i=0; i < size; ++i)
-                y = p.get(y);
+                x = p.get(x);
 
             List<Integer> path = new ArrayList<>();
-            for (int cur = y; ; cur = p.get(cur)) {
+            for (int cur = x; ; cur = p.get(cur)) {
                 path.add (cur);
-                if (cur == y && path.size() > 1)
+                if (cur == x && path.size() > 1)
                     break;
             }
             Collections.reverse(path);

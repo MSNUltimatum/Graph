@@ -1,7 +1,7 @@
-import abstractClasses.Graph;
-import graphClasses.FordBellmanTask;
+import graphClasses.FordBellmanAlgorithm;
 import graphClasses.GraphFactory;
 import graphClasses.GraphType;
+import graphClasses.OrientedWeightedGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +11,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FordBellmonTest {
-    Graph<Integer> graph;
+    OrientedWeightedGraph<Integer> graph;
     GraphFactory<Integer> gf;
-    FordBellmanTask fb;
+    FordBellmanAlgorithm fb;
     @BeforeEach
     public void init(){
         gf = new GraphFactory<>();
-        graph = gf.makeGraph(GraphType.ORIENTEDWEIGHTED);
+        graph = new OrientedWeightedGraph<>();
     }
 
     @Test
@@ -33,7 +33,7 @@ public class FordBellmonTest {
         graph.addEdge(0, 4, 4);
         graph.addEdge(1, 6, 3);
         graph.addEdge(2, 5, 7);
-        fb = new FordBellmanTask(graph);
+        fb = new FordBellmanAlgorithm(graph);
 
         List<Integer> negateCycle = fb.getNegateCycle();
         List<Integer> result = new ArrayList<>();
@@ -54,13 +54,14 @@ public class FordBellmonTest {
         graph.addEdge(2, 3, 0);
         graph.addEdge(3, 1, 1);
         graph.addEdge(3, 4, 0);
-        fb = new FordBellmanTask(graph);
+        fb = new FordBellmanAlgorithm(graph);
 
         List<Integer> negateCycle = fb.getNegateCycle();
         List<Integer> result = new ArrayList<>();
         result.add(3);
-        result.add(2);
         result.add(1);
+        result.add(2);
+        result.add(3);
 
         assertEquals(result, negateCycle);
     }

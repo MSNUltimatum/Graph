@@ -1,11 +1,13 @@
 package graphClasses;
 
-import abstractClasses.Graph;
-import abstractClasses.NonOrientedAbstractGraph;
+import abstractClasses.NoOrientedAbstractGraph;
+import interfaces.INotOriented;
+import interfaces.INotWeighted;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
-class NotOrientedGraph<T> extends NonOrientedAbstractGraph<T> {
+public class NotOrientedGraph<T> extends NoOrientedAbstractGraph<T> implements INotOriented<T>, INotWeighted<T> {
     public NotOrientedGraph() {
         super();
     }
@@ -28,4 +30,12 @@ class NotOrientedGraph<T> extends NonOrientedAbstractGraph<T> {
         }
     }
 
+    @Override
+    protected void fillNoWeightedGraph(List<String[]> lines, Class<T> tClass) {
+        lines.forEach(line ->{
+            for (int i = 1; i < line.length; i++) {
+                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i]));
+            }
+        });
+    }
 }

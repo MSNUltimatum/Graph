@@ -1,7 +1,7 @@
 import abstractClasses.Graph;
-import abstractClasses.NonOrientedAbstractGraph;
 import graphClasses.GraphFactory;
 import graphClasses.GraphType;
+import graphClasses.NotOrientedGraph;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
@@ -9,11 +9,11 @@ public class GraphFactoryTests {
     @Test
     public void testGraphFactory(){
         GraphFactory<Integer> gf = new GraphFactory<>();
-        Graph<Integer> graph = gf.makeGraph(GraphType.NOTORIENTED);
+        NotOrientedGraph<Integer> graph = new NotOrientedGraph<>();
         setData(graph);
-        Graph<Integer> graph1 = gf.makeGraph(GraphType.NOTORIENTED, graph);
-        Graph<Integer> graph2 = gf.makeGraph(GraphType.NOTORIENTED, graph);
-        graph = gf.makeGraphWithoutEdgesBetweenSamePowerVertexes(graph1);
+        NotOrientedGraph<Integer> graph1 = new NotOrientedGraph<>(graph);
+        NotOrientedGraph<Integer> graph2 = new NotOrientedGraph<>(graph);
+        graph = (NotOrientedGraph<Integer>) gf.makeGraphWithoutEdgesBetweenSamePowerVertexes(graph1);
 
         assertEquals(graph1.getGraph(), graph2.getGraph());
         graph1.deleteEdge(1, 2);
@@ -22,7 +22,7 @@ public class GraphFactoryTests {
         assertEquals(graph1.getGraph(), graph.getGraph());
     }
 
-    private void setData(Graph<Integer> graph){
+    private void setData(NotOrientedGraph<Integer> graph){
         graph.addVertex(1); //1 || 2 3 4
         graph.addVertex(2); //2 || 1 4 3
         graph.addVertex(3); //2 || 1 4 2
