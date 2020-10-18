@@ -1,13 +1,8 @@
 package interfaces;
 
-import abstractClasses.Graph;
-
 import java.util.Scanner;
 
 public interface IWeighted<T> {
-
-    void addEdge(T fromV, T toV, double weight);
-
     double getWeightFromEdge(T fromV, T toV);
 
     void setWeightToEdge(T fromV, T toV, double weight);

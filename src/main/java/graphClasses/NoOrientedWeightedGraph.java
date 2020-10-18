@@ -85,12 +85,4 @@ public class NoOrientedWeightedGraph<T> extends NoOrientedAbstractGraph<T> imple
         return distances;
     }
 
-    @Override
-    protected void fillWeightedGraph(List<String[]> lines, Class<T> tClass) {
-        lines.forEach(line ->{
-            for (int i = 1; i < line.length; i++) {
-                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i].split("=")[0]), Double.parseDouble(line[i].split("=")[1]));
-            }
-        });
-    }
 }

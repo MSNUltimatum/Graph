@@ -31,12 +31,4 @@ public class OrientedGraph<T> extends OrientedAbstractClass<T> implements IOrien
         }
     }
 
-    @Override
-    protected void fillNoWeightedGraph(List<String[]> lines, Class<T> tClass) {
-        lines.forEach(line ->{
-            for (int i = 1; i < line.length; i++) {
-                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i]));
-            }
-        });
-    }
 }

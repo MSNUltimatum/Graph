@@ -42,18 +42,28 @@ public abstract class Graph<T> implements IGraph<T> {
     }
 
     protected void fillNoWeightedGraph(List<String[]> lines, Class<T> tClass) {
+        lines.forEach(line ->{
+            for (int i = 1; i < line.length; i++) {
+                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i]));
+            }
+        });
     }
 
     protected void fillWeightedGraph(List<String[]> lines, Class<T> tClass) {
+        lines.forEach(line ->{
+            for (int i = 1; i < line.length; i++) {
+                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i].split("=")[0]), Double.parseDouble(line[i].split("=")[1]));
+            }
+        });
     }
 
-    protected void readLines(Scanner in, List<String[]> lines) {
+    private void readLines(Scanner in, List<String[]> lines) {
         while (in.hasNextLine()){
             lines.add(in.nextLine().split(" "));
         }
     }
 
-    protected T castArg(Class<T> tClass, String line) {
+    private T castArg(Class<T> tClass, String line) {
         if (tClass.isAssignableFrom(String.class)) {
             return (T) line;
         } else if (tClass.isAssignableFrom(Integer.class)) {
@@ -164,6 +174,9 @@ public abstract class Graph<T> implements IGraph<T> {
     public int getVertexesCount() {
         return graph.size();
     }
+
+    protected void addEdge(T fromV, T toV, double weight){}
+    protected void addEdge(T fromV, T toV){}
 
     protected void DFS(T v, Set<T> used){
         used.add(v);

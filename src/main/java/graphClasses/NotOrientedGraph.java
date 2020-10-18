@@ -30,12 +30,4 @@ public class NotOrientedGraph<T> extends NoOrientedAbstractGraph<T> implements I
         }
     }
 
-    @Override
-    protected void fillNoWeightedGraph(List<String[]> lines, Class<T> tClass) {
-        lines.forEach(line ->{
-            for (int i = 1; i < line.length; i++) {
-                addEdge(castArg(tClass, line[0]), castArg(tClass, line[i]));
-            }
-        });
-    }
 }
