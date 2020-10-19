@@ -1,13 +1,13 @@
 package graphClasses;
 
 import abstractClasses.Graph;
-import helpClasses.Pair;
+import helpClasses.Edge;
 
 import java.util.*;
 
 public class FordBellmanAlgorithm {
     private final int size;
-    private final List<Pair> edges;
+    private final List<Edge> edges;
     private final Graph<Integer> graph;
 
     public FordBellmanAlgorithm(Graph<Integer> graph) {
@@ -27,7 +27,7 @@ public class FordBellmanAlgorithm {
         int x = 0;
         for (int i = 0; i < size; ++i) {
             x = -1;
-            for (Pair edge : edges) {
+            for (Edge edge : edges) {
                 if (d.get(edge.getSecondValue()) > d.get(edge.getFirstValue()) + edge.getWeight()) {
                     d.put(edge.getSecondValue(),
                             Math.max(-Double.MAX_VALUE, d.get(edge.getFirstValue()) + edge.getWeight()));

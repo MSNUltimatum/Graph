@@ -1,7 +1,7 @@
 package graphClasses;
 
 import abstractClasses.Graph;
-import helpClasses.Pair;
+import helpClasses.Edge;
 import helpClasses.UnionFind;
 
 import java.util.*;
@@ -11,9 +11,9 @@ public class BoruvkaAlgorithm {
     private final NoOrientedWeightedGraph<Integer> mst;
     private final UnionFind uf;
     private int totalWeight = 0;
-    private final List<Pair> edges;
+    private final List<Edge> edges;
     private int mstEdgesSize = 0;
-    private Pair[] closestEdgeArray;
+    private Edge[] closestEdgeArray;
 
 
     public BoruvkaAlgorithm(NoOrientedWeightedGraph<Integer> graph) {
@@ -27,7 +27,7 @@ public class BoruvkaAlgorithm {
     public Graph<Integer> Boruvka_Mst() {
         int size = noOrientedWeightedGraph.getVertexesCount();
         for (int t = 1; t < size && mstEdgesSize < size - 1; t = t + t) {
-            closestEdgeArray = new Pair[size];
+            closestEdgeArray = new Edge[size];
             fillClosestArray();
             treeMaker(size);
         }
@@ -38,7 +38,7 @@ public class BoruvkaAlgorithm {
 
     private void treeMaker(int size) {
         for (int i = 0; i < size; i++) {
-            Pair edge = closestEdgeArray[i];
+            Edge edge = closestEdgeArray[i];
             if (edge != null) {
                 int u = edge.getFirstValue();
                 int v = edge.getSecondValue();
@@ -54,7 +54,7 @@ public class BoruvkaAlgorithm {
     }
 
     private void fillClosestArray() {
-        for (Pair edge : edges) {
+        for (Edge edge : edges) {
             Integer u = edge.getFirstValue();
             Integer v = edge.getSecondValue();
             int uParent = uf.find(u);

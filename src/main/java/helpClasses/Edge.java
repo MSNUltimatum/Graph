@@ -2,7 +2,7 @@ package helpClasses;
 
 import java.util.Objects;
 
-public class Pair{
+public class Edge {
     private Integer firstValue;
     private Integer secondValue;
     private Double weight;
@@ -24,13 +24,13 @@ public class Pair{
         this.secondValue = secondValue;
     }
 
-    public Pair(Integer firstValue, Integer secondValue, Double weight) {
+    public Edge(Integer firstValue, Integer secondValue, Double weight) {
         this.firstValue = firstValue;
         this.secondValue = secondValue;
         this.weight = weight;
     }
 
-    public Pair() {
+    public Edge() {
     }
 
     public Double getWeight() {
@@ -45,7 +45,7 @@ public class Pair{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Pair pair = (Pair) o;
+        Edge pair = (Edge) o;
         return Objects.equals(firstValue, pair.firstValue) &&
                 Objects.equals(secondValue, pair.secondValue) &&
                 Objects.equals(weight, pair.weight);

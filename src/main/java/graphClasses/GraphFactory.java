@@ -1,7 +1,8 @@
 package graphClasses;
 
 import abstractClasses.Graph;
-import helpClasses.Pair;
+import helpClasses.Edge;
+import helpClasses.FlowEdge;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -60,11 +61,11 @@ public class GraphFactory<T> {
         return graph;
     }
 
-    public List<Pair> getEdgesListFromIntGraph(Graph<Integer> graph){
-        List<Pair> edges = new ArrayList<>();
+    public List<Edge> getEdgesListFromIntGraph(Graph<Integer> graph){
+        List<Edge> edges = new ArrayList<>();
         graph.getGraph().forEach((key, val) -> {
             val.forEach((key1, val1) -> {
-                Pair edge = new Pair();
+                Edge edge = new Edge();
                 if(graph instanceof NoOrientedWeightedGraph || graph instanceof NotOrientedGraph) {
                     makePair(key, key1, edge);
                 } else {
@@ -80,7 +81,7 @@ public class GraphFactory<T> {
         return edges;
     }
 
-    private void makePair(Integer key, Integer key1, Pair edge) {
+    private void makePair(Integer key, Integer key1, Edge edge) {
         if(key >= key1){
             edge.setFirstValue(key1);
             edge.setSecondValue(key);
@@ -88,5 +89,17 @@ public class GraphFactory<T> {
             edge.setFirstValue(key);
             edge.setSecondValue(key1);
         }
+    }
+
+    public Map<Integer, List<FlowEdge>> makeFlowsGraph(OrientedWeightedGraph<Integer> graph){
+        Map<Integer, List<FlowEdge>> flowGraph = new HashMap<>();
+        graph.getGraph().keySet().forEach(e -> flowGraph.put(e, new ArrayList<>()));
+        graph.getGraph().forEach((e, k) -> {
+            k.forEach((k1, v1) -> {
+                flowGraph.get(e).add(new FlowEdge(k1, flowGraph.get(k1).size(),v1));
+                flowGraph.get(k1).add(new FlowEdge(e, flowGraph.get(e).size() - 1, 0d));
+            });
+        });
+        return flowGraph;
     }
 }
