@@ -50,39 +50,4 @@ public class NoOrientedWeightedGraph<T> extends NoOrientedAbstractGraph<T> imple
         }
     }
 
-    public Map<T, Double> minimumWays(T s) {
-        LinkedList<T> queue = new LinkedList<>();
-        Set<T> used = new HashSet<>();
-        Map<T, Double> distances = new HashMap<>();
-        Map<T, T> prev = new HashMap<>();
-        prev.put(s, null);
-        queue.add(s);
-        used.add(s);
-        distances.put(s, 0d);
-        while (!queue.isEmpty()){
-            T v = queue.poll();
-            graph.get(v).forEach((k, d) -> {
-                if (!used.contains(k)){
-                    used.add(k);
-                    queue.add(k);
-                    prev.put(k, v);
-                    distances.put(k, distances.get(v) + getWeightFromEdge(k, v));
-                }
-            });
-        }
-        System.out.println();
-        graph.keySet().forEach(e -> {
-            List<T> path = new ArrayList<>();
-            T a = e;
-            while (a != null){
-                path.add(a);
-                a = prev.get(a);
-            }
-            Collections.reverse(path);
-            path.forEach(l -> System.out.printf("%s ",l));
-            System.out.println();
-        });
-        return distances;
-    }
-
 }

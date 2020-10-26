@@ -39,7 +39,7 @@ public class FloydWarshallAlgorithm {
             }
         }));
 
-        for (int k = 0; k < vNum; k++) {
+        for (int k = 0; k < vNum - 1; k++) {
             for (int i = 0; i < vNum; i++) {
                 for (int j = 0; j < vNum; j++) {
                     copyOfSourceGraph.setWeightToEdge(i, j, Math.min(copyOfSourceGraph.getWeightFromEdge(i, j),
