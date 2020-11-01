@@ -1,7 +1,5 @@
 package graphClasses;
-
 import helpClasses.FlowEdge;
-
 import java.util.*;
 
 public class DinicAlgorithm {
@@ -12,7 +10,9 @@ public class DinicAlgorithm {
     private final Map<Integer, Integer> ptr = new HashMap<>();
     private final Set<Integer> keySet;
 
-    public DinicAlgorithm(Integer sourceVertex, Integer targetVertex, OrientedWeightedGraph<Integer> orientedWeightedGraph) {
+    public DinicAlgorithm(Integer sourceVertex,
+                          Integer targetVertex,
+                          OrientedWeightedGraph<Integer> orientedWeightedGraph){
         this.sourceVertex = sourceVertex;
         this.targetVertex = targetVertex;
         keySet = orientedWeightedGraph.getGraph().keySet();
@@ -29,13 +29,14 @@ public class DinicAlgorithm {
                 pushed = dinicDfs(sourceVertex, Double.MAX_VALUE);
                 if(pushed == 0)
                     break;
+                System.out.println("Pushed = " + pushed);
                 flow += pushed;
             } while (pushed != 0);
         }
         return flow;
     }
 
-    boolean dinicBfs() {
+    private boolean dinicBfs() {
         keySet.forEach(e -> dist.put(e, -1d));
         dist.put(sourceVertex, 0d);
         Map<Integer, Integer> Q = new HashMap<>();
@@ -53,7 +54,7 @@ public class DinicAlgorithm {
         return dist.get(targetVertex) >= 0;
     }
 
-    double dinicDfs(int u, double f) {
+    private double dinicDfs(int u, double f) {
         if (u == targetVertex)
             return f;
         for (; ptr.get(u) < graph.get(u).size();  ptr.put(u, ptr.get(u) + 1)) {
@@ -61,6 +62,7 @@ public class DinicAlgorithm {
             if (dist.get(e.getTarget()) == dist.get(u) + 1 && e.getFlow() < e.getCapacity()) {
                 double df = dinicDfs(e.getTarget(), Math.min(f, e.getCapacity() - e.getFlow()));
                 if (df > 0) {
+                    System.out.printf("%s %s %s\n", u, e.getTarget(),df);
                     e.setFlow(e.getFlow() + df);
                     graph.get(e.getTarget()).get(e.getReversed())
                             .setFlow(graph.get(e.getTarget()).get(e.getReversed()).getFlow() - df);

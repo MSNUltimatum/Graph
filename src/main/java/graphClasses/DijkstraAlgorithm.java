@@ -80,8 +80,6 @@ public class DijkstraAlgorithm<T> {
                 a = prev.get(a);
             }
             Collections.reverse(path);
-//            path.forEach(l -> System.out.printf("%s ",l));
-//            System.out.println();
         });
     }
 }

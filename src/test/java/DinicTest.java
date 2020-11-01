@@ -11,18 +11,18 @@ public class DinicTest {
         for (int i = 0; i <= 5; i++) {
             orientedWeightedGraph.addVertex(i);
         }
-        orientedWeightedGraph.addEdge(0, 1, 1);
-        orientedWeightedGraph.addEdge(1, 3, 9);
-        orientedWeightedGraph.addEdge(3, 5, 100);
-        orientedWeightedGraph.addEdge(1, 2, 10);
+        orientedWeightedGraph.addEdge(0, 1, 10);
+        orientedWeightedGraph.addEdge(1, 3, 4);
+        orientedWeightedGraph.addEdge(3, 5, 10);
+        orientedWeightedGraph.addEdge(1, 2, 2);
         orientedWeightedGraph.addEdge(0, 2, 10);
-        orientedWeightedGraph.addEdge(4, 1, 8);
+        orientedWeightedGraph.addEdge(1, 4, 8);
         orientedWeightedGraph.addEdge(2, 4, 9);
-        orientedWeightedGraph.addEdge(4, 3, 2);
-        orientedWeightedGraph.addEdge(4, 5, 1);
+        orientedWeightedGraph.addEdge(4, 3, 6);
+        orientedWeightedGraph.addEdge(4, 5, 10);
         DinicAlgorithm dinicAlgorithm = new DinicAlgorithm(0, 5, orientedWeightedGraph);
         double v = dinicAlgorithm.maxFlow();
-        Assertions.assertEquals(10, v);
+        Assertions.assertEquals(19, v);
     }
 
     @Test
